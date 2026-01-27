@@ -1,21 +1,32 @@
 from flask import Flask, render_template, request, redirect
 
-app = Flask(name)
+app = Flask(__name__)
 
 students = []
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        grade_input = request.form.get('grade')
-        
-        if name and grade_input:
-            grade = int(grade_input)
-            status = "Passed" if grade >= 75 else "Failed"
-            students.append({'name': name, 'grade': grade, 'status': status})
-            
-    return render_template('index.html', students=students)
+    if request.method == "POST":
+        name = request.form["name"]
+        grade = float(request.form["grade"])
 
-if name == 'main':
+        if grade >= 75:
+            status = "Passed"
+            css_class = "pass"
+        else:
+            status = "Failed"
+            css_class = "fail"
+
+        students.append({
+            "name": name,
+            "grade": grade,
+            "status": status,
+            "class": css_class
+        })
+
+        return redirect("/")
+
+    return render_template("index.html", students=students)
+
+if __name__ == "__main__":
     app.run(debug=True)
