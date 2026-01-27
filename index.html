@@ -34,6 +34,13 @@
                 alert("Please fill out all fields");
                 return false;
             }
+            
+            // Basic email validation
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address");
+                return false;
+            }
  
             if (grade < 0 || grade > 100) {
                 alert("Grade must be between 0 and 100");
