@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Grade Management</title>
-
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
  
     <style>
@@ -12,7 +11,7 @@
             margin: 40px;
         }
  
-        input, button {
+        input, button, select {
             padding: 8px;
             margin-top: 5px;
         }
@@ -26,9 +25,12 @@
     <script>
         function validateForm() {
             let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let date = document.getElementById("date").value;
+            let subject = document.getElementById("subject").value;
             let grade = document.getElementById("grade").value;
  
-            if (name === "" || grade === "") {
+            if (name === "" || email === "" || date === "" || subject === "" || grade === "") {
                 alert("Please fill out all fields");
                 return false;
             }
@@ -38,90 +40,59 @@
                 return false;
             }
  
-            addStudent(name, grade);
+            addStudent(name, email, date, subject, grade);
             return false; // prevent page reload
         }
  
-        function addStudent(name, grade) {
+        function addStudent(name, email, date, subject, grade) {
             let status = grade >= 75 ? "Passed" : "Failed";
             let color = grade >= 75 ? "green" : "red";
  
             let li = document.createElement("li");
             li.style.color = color;
-            li.textContent = name + " - " + grade + " (" + status + ")";
+            li.textContent = name + " - " + email + " - " + date + " - " + subject + " - " + grade + " (" + status + ")";
  
             document.getElementById("studentList").appendChild(li);
  
             document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("subject").value = "";
             document.getElementById("grade").value = "";
         }
     </script>
-  <meta charset="UTF-8">
-  <title>Student Grade Web App</title>
-  <link rel="stylesheet" href="static/style.css">
-  <script src="static/script.js" defer></script>
 </head>
  
 <body>
+    <div class="container">
+        <h2>Student Grade Management</h2>
+        <form onsubmit="return validateForm();">
+            <label>Student Name:</label><br>
+            <input type="text" id="name"><br><br>
+            
+            <label>Email:</label><br>
+            <input type="email" id="email"><br><br>
+            
+            <label>Date:</label><br>
+            <input type="date" id="date"><br><br>
+            
+            <label>Subject:</label><br>
+            <select id="subject">
+                <option value="">-- Select Subject --</option>
+                <option>Integrated Programming and Technologies</option>
+                <option>Web Systems and Technologies</option>
+            </select><br><br>
  
-    <h2>Student Grade Management</h2>
+            <label>Grade:</label><br>
+            <input type="number" id="grade"><br><br>
  
-    <form onsubmit="return validateForm();">
-        <label>Student Name:</label><br>
-        <input type="text" id="name"><br><br>
+            <button type="submit">Add Student</button>
+        </form>
  
-        <label>Grade:</label><br>
-        <input type="number" id="grade"><br><br>
+        <hr>
  
-        <button type="submit">Add Student</button>
-    </form>
- 
-    <hr>
- 
-    <h3>Student List</h3>
-    <ul id="studentList"></ul>
- 
-
-<div class="container">
-  <h2>Student Grade Management</h2>
-
-  <form id="studentForm">
-
-    <label>Student Name:</label>
-    <input type="text" id="name">
-
-    <div id="dateField" class="hidden">
-      <label>Date:</label>
-      <input type="date" id="date">
+        <h3>Student List</h3>
+        <ul id="studentList"></ul>
     </div>
-
-    <div id="subjectField" class="hidden">
-      <label>Subject:</label>
-      <select id="subject">
-        <option value="">-- Select Subject --</option>
-        <option>Integrated Programming</option>
-        <option>Web Fundamentals</option>
-      </select>
-    </div>
-
-    <div id="emailField" class="hidden">
-      <label>Email:</label>
-      <input type="email" id="email">
-    </div>
-
-    <div id="gradeField" class="hidden">
-      <label>Grade:</label>
-      <input type="number" id="grade">
-    </div>
-
-    <button type="submit" id="submitBtn" class="hidden">Add Student</button>
-  </form>
-
-  <hr>
-
-  <h3>Student List</h3>
-  <ul id="studentList"></ul>
-</div>
-
 </body>
 </html>
