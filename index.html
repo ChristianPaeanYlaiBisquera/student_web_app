@@ -1,11 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Student Grade Management</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+ 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+ 
+        input, button {
+            padding: 8px;
+            margin-top: 5px;
+        }
+ 
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+ 
+    <script>
+        function validateForm() {
+            let name = document.getElementById("name").value;
+            let grade = document.getElementById("grade").value;
+ 
+            if (name === "" || grade === "") {
+                alert("Please fill out all fields");
+                return false;
+            }
+ 
+            if (grade < 0 || grade > 100) {
+                alert("Grade must be between 0 and 100");
+                return false;
+            }
+ 
+            addStudent(name, grade);
+            return false; // prevent page reload
+        }
+ 
+        function addStudent(name, grade) {
+            let status = grade >= 75 ? "Passed" : "Failed";
+            let color = grade >= 75 ? "green" : "red";
+ 
+            let li = document.createElement("li");
+            li.style.color = color;
+            li.textContent = name + " - " + grade + " (" + status + ")";
+ 
+            document.getElementById("studentList").appendChild(li);
+ 
+            document.getElementById("name").value = "";
+            document.getElementById("grade").value = "";
+        }
+    </script>
   <meta charset="UTF-8">
   <title>Student Grade Web App</title>
   <link rel="stylesheet" href="static/style.css">
   <script src="static/script.js" defer></script>
 </head>
+ 
 <body>
 
 <div class="container">
