@@ -63,6 +63,24 @@
 </head>
  
 <body>
+ 
+    <h2>Student Grade Management</h2>
+ 
+    <form onsubmit="return validateForm();">
+        <label>Student Name:</label><br>
+        <input type="text" id="name"><br><br>
+ 
+        <label>Grade:</label><br>
+        <input type="number" id="grade"><br><br>
+ 
+        <button type="submit">Add Student</button>
+    </form>
+ 
+    <hr>
+ 
+    <h3>Student List</h3>
+    <ul id="studentList"></ul>
+ 
 
 <div class="container">
   <h2>Student Grade Management</h2>
