@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Student Grade Web App</title>
-
-    <!-- Link JavaScript-->
-     <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <meta charset="UTF-8">
+  <title>Student Grade Web App</title>
+  <link rel="stylesheet" href="static/style.css">
+  <script src="static/script.js" defer></script>
 </head>
 <body>
-    <h2>Student Grade Managemnet</h2>
 
-    <form method="POST" onsubmit="return validateForm();">
-        <label>Student Name:</label><br>
-        <input type="text" id="name" name="name"><br><br>
+<div class="container">
+  <h2>Student Grade Management</h2>
 
-        <label>Grade:</label><br>
-        <input type="number" id="grade" name="grade"><br><br>
+  <form id="studentForm">
 
-        <button type="submit">Add Student</button>
-    </form>
+    <label>Student Name:</label>
+    <input type="text" id="name">
 
-    <hr>
+    <div id="dateField" class="hidden">
+      <label>Date:</label>
+      <input type="date" id="date">
+    </div>
 
-    <h3>Student List</h3>
-    <ul>
-        {% for student in students %}
-            <li style="color: {{ 'green' if student.status == 'Passed' else 'red' }}">
-                {{ student.name }} - {{ student.grade }} ({{ student.status }})
-            </li>
-        {% endfor %}
-    </ul>
+    <div id="subjectField" class="hidden">
+      <label>Subject:</label>
+      <select id="subject">
+        <option value="">-- Select Subject --</option>
+        <option>Integrated Programming</option>
+        <option>Web Fundamentals</option>
+      </select>
+    </div>
+
+    <div id="emailField" class="hidden">
+      <label>Email:</label>
+      <input type="email" id="email">
+    </div>
+
+    <div id="gradeField" class="hidden">
+      <label>Grade:</label>
+      <input type="number" id="grade">
+    </div>
+
+    <button type="submit" id="submitBtn" class="hidden">Add Student</button>
+  </form>
+
+  <hr>
+
+  <h3>Student List</h3>
+  <ul id="studentList"></ul>
+</div>
+
 </body>
 </html>
